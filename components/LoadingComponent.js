@@ -1,6 +1,6 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
-const Loading = ()=>{
+function Loading (){
 
   return(
     <View style={styles.loadingView}>
@@ -9,7 +9,7 @@ const Loading = ()=>{
         Loading...
       </Text>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
