@@ -1,4 +1,4 @@
-// import { useState } from "react";
+
 import { Image, Text, Platform, View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import CampsiteInfoScreen from "./CampsiteInfoScreen";
@@ -159,7 +159,7 @@ const FavoritesNavigator = ()=>{
               name='heart'
               type='font-awesome'
               iconStyle={styles.stackIcon}
-              onPress={navigation.toggleDrawer()}
+              onPress={()=>navigation.toggleDrawer()}
             />
           )
         })}
@@ -299,6 +299,7 @@ const Main = () => {
           component={FavoritesNavigator}
           options={{
             title: "My favorites",
+            headerShown: false,
             drawerIcon: ({ color }) => (
               <Icon
                 name="heart"
