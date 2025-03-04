@@ -295,7 +295,7 @@ const Main = () => {
           }}
         />
         <Drawer.Screen
-          name="Favorites"
+          name="Favorite Campsites"
           component={FavoritesNavigator}
           options={{
             title: "My favorites",
