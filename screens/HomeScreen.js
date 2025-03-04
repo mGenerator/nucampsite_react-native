@@ -1,16 +1,15 @@
-import { ScrollView, Text, View } from "react-native";
+import { Animated, Text, View } from "react-native";
 import { Card } from "react-native-elements";
 import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 import { baseUrl } from "../shared/baseUrl";
-import  Loading  from "../components/LoadingComponent";
+import Loading from "../components/LoadingComponent";
 
 const FeaturedItem = (props) => {
   const { item } = props;
 
   if (props.isLoading) {
-    return(
-      <Loading />
-    ); 
+    return <Loading />;
   }
   if (props.errMess) {
     return (
@@ -47,6 +46,13 @@ const HomeScreen = () => {
   const promotions = useSelector((state) => state.promotions);
   const partners = useSelector((state) => state.partners);
 
+  const scaleValue = useRef(new Animated.Value(0)).current;
+  const scaleAnimation = Animated.timing(scaleValue, {
+    toValue: 1,
+    duration: 1500,
+    useNativeDriver: true,
+  });
+
   const featCampsite = campsites.campsitesArray.find((item) => {
     return item.featured;
   });
@@ -58,9 +64,12 @@ const HomeScreen = () => {
   const featPartner = partners.partnersArray.find((item) => {
     return item.featured;
   });
+  useEffect(() => {
+    scaleAnimation.start();
+  }, []);
 
   return (
-    <ScrollView>
+    <Animated.ScrollView style={{ transform: [{ scale: scaleValue }] }}>
       <FeaturedItem
         item={featCampsite}
         isLoading={campsites.isLoading}
@@ -76,7 +85,7 @@ const HomeScreen = () => {
         isLoading={partners.isLoading}
         errMess={partners.errMess}
       />
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 export default HomeScreen;

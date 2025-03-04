@@ -5,12 +5,13 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
 import Loading from "../components/LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 import { SwipeRow } from "react-native-swipe-list-view";
-import {toggleFavorite} from "../features/favorites/favoritesSlice";
+import { toggleFavorite } from "../features/favorites/favoritesSlice";
 
 const FavoritesScreen = ({ navigation }) => {
   const { campsitesArray, isLoading, errMess } = useSelector(
@@ -18,13 +19,35 @@ const FavoritesScreen = ({ navigation }) => {
   );
   const favorites = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
+
   const renderFavoriteItem = ({ item: campsite }) => {
     return (
       <SwipeRow rightOpenValue={-100}>
         <View style={styles.deleteView}>
           <TouchableOpacity
             style={styles.deleteTouchable}
-            onPress={()=>dispatch(toggleFavorite(campsite.id))}
+            onPress={() =>
+              Alert.alert(
+                "Delete Favorite?",
+                "Are you sure you wish to delete the favorite campsite " +
+                  campsite.name +
+                  "?",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log(campsite.name + " not deleted"),
+                    style: "cancel",
+                  },
+                  {
+                    text: "OK",
+                    onPress: () => dispatch(toggleFavorite(campsite.id)),
+                  },
+                ],
+                {
+                  cancelable: false
+                }
+              )
+            }
           >
             <Text style={styles.deleteText}>Delete</Text>
           </TouchableOpacity>
@@ -70,23 +93,23 @@ const FavoritesScreen = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
-  deleteView:{
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    flex: 1
+  deleteView: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    flex: 1,
   },
-  deleteText:{
-    color: 'white',
-    fontWeight: '700',
-    textAlign: 'center',
+  deleteText: {
+    color: "white",
+    fontWeight: "700",
+    textAlign: "center",
     fontSize: 16,
-    width: 100
+    width: 100,
   },
-  deleteTouchable:{
-    backgroundColor: 'red',
-    height: '100%',
-    justifyContent: 'center'
-  }
+  deleteTouchable: {
+    backgroundColor: "red",
+    height: "100%",
+    justifyContent: "center",
+  },
 });
 export default FavoritesScreen;
