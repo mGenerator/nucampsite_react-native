@@ -45,7 +45,8 @@ const ReservationScreen = () => {
           text: "OK",
           onPress: ()=>resetForm()
         }
-      ]
+      ],
+      {cancelable: false}
     );
   };
 
