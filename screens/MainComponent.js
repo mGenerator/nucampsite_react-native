@@ -18,6 +18,7 @@ import { fetchPromotions } from "../features/promotions/promotionsSlice";
 import { fetchComments } from "../features/comments/commentsSlice";
 import ReservationScreen from "./ReservationScreen";
 import FavoritesScreen from "./FavoritesScreen";
+import LoginScreen from "./LoginScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -167,6 +168,27 @@ const FavoritesNavigator = ()=>{
     </Stack.Navigator>
   )
 }
+const LoginNavigator = ()=>{
+  const Stack = createStackNavigator();
+  return(
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen 
+        name='Login'
+        component={LoginScreen}
+        options={({navigation})=>({
+          headerLeft: ()=>(
+            <Icon 
+              name='sign-in'
+              type='font-awesome'
+              iconStyle={styles.stackIcon}
+              onPress={()=>navigation.toggleDrawer()}
+            />
+          )
+        })}
+      />
+    </Stack.Navigator>
+  )
+}
 
 const CustomDrawerContent = (props)=>(
   <DrawerContentScrollView {...props}>
@@ -202,7 +224,7 @@ const Main = () => {
       }}
     >
       <Drawer.Navigator
-        initialRouteName="HomeNav"
+        initialRouteName="Home"
         drawerContent={CustomDrawerContent}
         screenOptions={{
           drawerStyle: { backgroundColor: "#CEC8FF" },
@@ -210,7 +232,23 @@ const Main = () => {
         }}
       >
         <Drawer.Screen
-          name="HomeNav"
+          name="Login"
+          component={LoginNavigator}
+          options={{
+            headerShown: false,
+            drawerIcon: ({ color }) => (
+              <Icon
+                name="sign-in"
+                type="font-awesome"
+                size={24}
+                iconStyle={{ width: 24 }}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Home"
           component={HomeNavigator}
           options={{
             title: "Home",
