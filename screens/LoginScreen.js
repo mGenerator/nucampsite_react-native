@@ -3,13 +3,6 @@ import { View, Button, StyleSheet } from "react-native";
 import { CheckBox, Input } from "react-native-elements";
 import * as SecureStore from "expo-secure-store";
 
-//Does the Jsx extension matter? is that for react or react native
-// how to find the react native font awesome implementation
-//Is this different?
-// function LoginScreen(){
-
-// }
-
 const LoginScreen = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
