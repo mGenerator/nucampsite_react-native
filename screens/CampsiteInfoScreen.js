@@ -36,6 +36,7 @@ const CampsiteInfoScreen = ({ route }) => {
     setText("");
   };
   const renderCommentItem = ({ item }) => {
+     const date = new Date(item.date);
     return (
       <View style={styles.commentItem}>
         <Text style={{ fontSize: 14 }}>{item.text}</Text>
@@ -45,7 +46,7 @@ const CampsiteInfoScreen = ({ route }) => {
           startingValue={item.rating}
           readonly
         />
-        <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
+        <Text style={{ fontSize: 12 }}>{`--${item.author}, ${date.toLocaleDateString('en-US')}`}</Text>
       </View>
     );
   };
